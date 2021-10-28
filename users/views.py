@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from users.forms import UserForm, NameForm
+from .forms import UserForm, NameForm, ContactusForm
+from django.core.mail import send_mail
 
 
 def register(request):
@@ -30,3 +32,36 @@ def get_name(request):
         form = NameForm()
     return render(request, 'name.html', {'form': form})
 
+
+@login_required
+def show_name(request):
+    return render(request, 'users/name.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactusForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            email = form.cleaned_data.get('email')
+            message = form.cleaned_data.get('message')
+
+            subject = 'Someone contacted us.'
+            content = f"""
+            {first_name} {last_name} is trying to contact you.
+            Their email addres is: {email}
+            Message: {message}
+            """
+            send_mail(subject=subject, message=content,
+                      from_email='test.basic90@gmail.com',
+                      recipient_list=['test.basic90@gmail.com'])
+            return redirect('thank_you')
+    else:
+        form = ContactusForm()
+
+    return render(request, 'users/contact_us.html', {'form': form})
+
+
+def thank_you(request):
+    return render(request, 'users/thank_you.html')
