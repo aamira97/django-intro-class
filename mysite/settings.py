@@ -131,12 +131,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'test.basic90@gmail.com'
-<<<<<<< HEAD
-EMAIL_HOST_PASSWORD = 'bic@659988'
+EMAIL_HOST_PASSWORD = ''
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  # where to store uploaded files
 MEDIA_URL = '/media/'  # public url to the media files
-=======
-EMAIL_HOST_PASSWORD = ''
->>>>>>> 37884ef2f22c77c788f30cb409c774f57fdba93e
+
