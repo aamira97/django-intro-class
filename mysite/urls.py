@@ -20,6 +20,8 @@ from users import views as user_views
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
+from post.views import AboutView, PostView, PostDetailView, PostCreateView
 
 
 urlpatterns = [
@@ -45,7 +47,13 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(
              template_name='users/password_reset_complete.html'),
-         name='password_reset_complete')
+         name='password_reset_complete'),
+    # path('about/', TemplateView.as_view(template_name="about.html")),
+    path('about/', AboutView.as_view()),
+    path('', PostView.as_view(), name='posts-home'),
+    path('post/<int:pk>', PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', PostCreateView.as_view(), name='post-create')
+
 ]
 
 if settings.DEBUG:

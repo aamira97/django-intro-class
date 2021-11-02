@@ -7,4 +7,4 @@ class PostModel(models.Model):
     image = models.ImageField(upload_to='image/')
 
     def __str__(self):
-        return f'{self.title}, {self.description[:10]}'
+        return f'{self.id} | {self.title}, {self.description[:10]}'
