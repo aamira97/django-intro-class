@@ -13,6 +13,7 @@ class PostView(ListView):
     model = PostModel
     template_name = 'post/all_posts.html'
     context_object_name = 'posts'
+    paginate_by = 3
 
 
 class PostDetailView(DetailView):

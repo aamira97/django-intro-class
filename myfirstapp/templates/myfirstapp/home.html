@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+    {#  Code for the upper part  #}
+    {% block body %}
     <h1>Welcome home {{ context.first_name }} {{ context.last_name }}.</h1>
+    {% endblock %}
 </body>
 </html>
