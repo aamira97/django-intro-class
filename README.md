@@ -33,5 +33,45 @@ pip freeze > requirements.txt
 
 Create a **.gitignore** file in your project directory and put this text in it.
 ```
+/venv
+.idea/
+```
+
+### Create your heroku app
 
 ```
+heroku create yourdomainname
+```
+Note: you might get this message `Name testappforfun is already taken`. It means your app has not been created. Pick a name that does not exist. 
+Then you will get this message `Creating ⬢ yourdomainname... done`
+
+### Settings configuration
+Add the following text to your settings.py
+
+```
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+ALLOWED_HOSTS = ['yourdomainname.heroku.com']
+```
+
+
+### Procfile
+In your project directory create a text file named `Procfile`. It must not have .txt ending.
+
+Put this line of code in it `web: gunicorn mysite.wsgi`
+
+`mysite` is where your settings.py file is. 
+
+## Push everything
+
+Run this in your terminal 
+```
+heroku config:set DISABLE_COLLECTSTATIC=1
+```
+Then push the code
+```
+git add . 
+git commit -m "initial commit"
+git push heroku master
+```
+
+## Postgres setup
