@@ -88,7 +88,7 @@ Next, next, next... in the password field create a simple password and remember 
 
 Leave the port the same. Next, next, next..
 
-## addons
+### addons
 Go to terminal. 
 Create a db on your heroku with this command.
 ```
@@ -108,7 +108,7 @@ heroku-postgresql (postgresql-closed-05408)  hobby-dev  free   created
 
 ```
 
-## Heroku bash
+### Heroku bash
 Enter heroku bash, migrate and create a super user.
 ```
 > heroku run bash
