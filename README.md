@@ -28,6 +28,7 @@ Then run `git status` which will show all your files that need to be pushed to g
 Before commiting run 
 ```
 pip install gunicorn
+pip install django-heroku
 pip freeze > requirements.txt
 ```
 
@@ -49,6 +50,9 @@ Then you will get this message `Creating ⬢ yourdomainname... done`
 Add the following text to your settings.py
 
 ```
+import django_heroku
+django_heroku.settings(locals())
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 ALLOWED_HOSTS = ['yourdomainname.heroku.com']
 ```
@@ -61,7 +65,7 @@ Put this line of code in it `web: gunicorn mysite.wsgi`
 
 `mysite` is where your settings.py file is. 
 
-## Push everything
+### Push everything
 
 Run this in your terminal 
 ```
@@ -75,3 +79,40 @@ git push heroku master
 ```
 
 ## Postgres setup
+
+Go to https://content-www.enterprisedb.com/downloads/postgres-postgresql-downloads and download latest windows version.
+
+Run the .exe. file. 
+
+Next, next, next... in the password field create a simple password and remember it. 
+
+Leave the port the same. Next, next, next..
+
+## addons
+Go to terminal. 
+Create a db on your heroku with this command.
+```
+heroku addons:create heroku-postgresql:hobby-dev
+```
+Check if the db is create with this command.
+```
+heroku addons
+```
+
+You should see something like this
+```
+Add-on                                       Plan       Price  State  
+───────────────────────────────────────────  ─────────  ─────  ───────
+heroku-postgresql (postgresql-closed-05408)  hobby-dev  free   created
+ └─ as DATABASE
+
+```
+
+## Heroku bash
+Enter heroku bash, migrate and create a super user.
+```
+> heroku run bash
+$ python manage.py migrate
+$ python manage.py createsuperuser 
+```
+
